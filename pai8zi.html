@@ -1,119 +1,124 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>四柱简单排盘</title>
     <link rel="stylesheet" href="https://unpkg.com/element-plus@2.4.2/dist/index.css" />
     <script src="https://unpkg.com/vue@3.3.8/dist/vue.global.js"></script>
     <script src="https://unpkg.com/element-plus@2.4.2/dist/index.full.js"></script>
 </head>
-
 <div id="app">
-    <el-row justify="center" style="margin-top:20px">
+    <el-row justify="center">
         <el-col :xs="6" :sm="6" :lg="4" :xl="2">
-            <p class="nmlFont" :style=`color:${wuXingColor[wuXing[nianGan]]}`>{{riGan && nianGan ? shiShen[riGan][nianGan] : '年'}}</p>
-            <p class="bigFont" :style=`color:${wuXingColor[wuXing[nianGan]]}` @click="dialogMark=1; dialogOptions=gan; dialogVisible=true">{{nianGan || '干'}}</p>
-            <p class="bigFont" :style=`color:${wuXingColor[wuXing[nianZhi]]}` @click="dialogMark=2; dialogOptions=yangGan.indexOf(nianGan)>=0?yangZhi:yinZhi; nianGan&&(dialogVisible=true)">{{nianZhi || '支'}}</p>
-            <p class="smlFont" :style=`color:${wuXingColor[wuXing[i]]}` v-for="i in cangGan[nianZhi] || []">{{i + (riGan ? ` · ${shiShen[riGan][i]}` : '')}}</p>
+            <p class="nmlFont" :style=`color:${wuXingColor[wuXingMap[nianGan]]}`>{{riGan && nianGan ? shiShen[riGan][nianGan] : '年'}}</p>
+            <p class="bigFont" :style=`color:${wuXingColor[wuXingMap[nianGan]]}` @click="dialogMark=1; dialogOptions=gan; dialogVisible=true">{{nianGan || '干'}}</p>
+            <p class="bigFont" :style=`color:${wuXingColor[wuXingMap[nianZhi]]}` @click="dialogMark=2; dialogOptions=yangGan.indexOf(nianGan)>=0?yangZhi:yinZhi; nianGan&&(dialogVisible=true)">{{nianZhi || '支'}}</p>
+            <p class="smlFont" :style=`color:${wuXingColor[wuXingMap[i]]}` v-for="i in cangGan[nianZhi] || []">{{i + (riGan ? ` · ${shiShen[riGan][i]}` : '')}}</p>
         </el-col>
         <el-col :xs="6" :sm="6" :lg="4" :xl="2">
-            <p class="nmlFont" :style=`color:${wuXingColor[wuXing[yueGan]]}`>{{riGan && yueGan ? shiShen[riGan][yueGan] : '月'}}</p>
-            <p class="bigFont" :style=`color:${wuXingColor[wuXing[yueGan]]}` @click="dialogMark=3; dialogOptions=gan; dialogVisible=true">{{yueGan || '干'}}</p>
-            <p class="bigFont" :style=`color:${wuXingColor[wuXing[yueZhi]]}` @click="dialogMark=4; dialogOptions=yangGan.indexOf(yueGan)>=0?yangZhi:yinZhi; yueGan&&(dialogVisible=true)">{{yueZhi || '支'}}</p>
-            <p class="smlFont" :style=`color:${wuXingColor[wuXing[i]]}` v-for="i in cangGan[yueZhi] || []">{{i + (riGan ? ` · ${shiShen[riGan][i]}` : '')}}</p>
+            <p class="nmlFont" :style=`color:${wuXingColor[wuXingMap[yueGan]]}`>{{riGan && yueGan ? shiShen[riGan][yueGan] : '月'}}</p>
+            <p class="bigFont" :style=`color:${wuXingColor[wuXingMap[yueGan]]}` @click="dialogMark=3; dialogOptions=gan; dialogVisible=true">{{yueGan || '干'}}</p>
+            <p class="bigFont" :style=`color:${wuXingColor[wuXingMap[yueZhi]]}` @click="dialogMark=4; dialogOptions=yangGan.indexOf(yueGan)>=0?yangZhi:yinZhi; yueGan&&(dialogVisible=true)">{{yueZhi || '支'}}</p>
+            <p class="smlFont" :style=`color:${wuXingColor[wuXingMap[i]]}` v-for="i in cangGan[yueZhi] || []">{{i + (riGan ? ` · ${shiShen[riGan][i]}` : '')}}</p>
         </el-col>
         <el-col :xs="6" :sm="6" :lg="4" :xl="2">
             <p class="nmlFont">日主</p>
-            <p class="bigFont" :style=`color:${wuXingColor[wuXing[riGan]]}` @click="dialogMark=5; dialogOptions=gan; dialogVisible=true">{{riGan || '干'}}</p>
-            <p class="bigFont" :style=`color:${wuXingColor[wuXing[riZhi]]}` @click="dialogMark=6; dialogOptions=yangGan.indexOf(riGan)>=0?yangZhi:yinZhi; riGan&&(dialogVisible=true)">{{riZhi || '支'}}</p>
-            <p class="smlFont" :style=`color:${wuXingColor[wuXing[i]]}` v-for="i in cangGan[riZhi] || []">{{i + (riGan ? ` · ${shiShen[riGan][i]}` : '')}}</p>
+            <p class="bigFont" :style=`color:${wuXingColor[wuXingMap[riGan]]}` @click="dialogMark=5; dialogOptions=gan; dialogVisible=true">{{riGan || '干'}}</p>
+            <p class="bigFont" :style=`color:${wuXingColor[wuXingMap[riZhi]]}` @click="dialogMark=6; dialogOptions=yangGan.indexOf(riGan)>=0?yangZhi:yinZhi; riGan&&(dialogVisible=true)">{{riZhi || '支'}}</p>
+            <p class="smlFont" :style=`color:${wuXingColor[wuXingMap[i]]}` v-for="i in cangGan[riZhi] || []">{{i + (riGan ? ` · ${shiShen[riGan][i]}` : '')}}</p>
         </el-col>
         <el-col :xs="6" :sm="6" :lg="4" :xl="2">
-            <p class="nmlFont" :style=`color:${wuXingColor[wuXing[shiGan]]}`>{{riGan && shiGan ? shiShen[riGan][shiGan] : '时'}}</p>
-            <p class="bigFont" :style=`color:${wuXingColor[wuXing[shiGan]]}` @click="dialogMark=7; dialogOptions=gan; dialogVisible=true">{{shiGan || '干'}}</p>
-            <p class="bigFont" :style=`color:${wuXingColor[wuXing[shiZhi]]}` @click="dialogMark=8; dialogOptions=yangGan.indexOf(shiGan)>=0?yangZhi:yinZhi; shiGan&&(dialogVisible=true)">{{shiZhi || '支'}}</p>
-            <p class="smlFont" :style=`color:${wuXingColor[wuXing[i]]}` v-for="i in cangGan[shiZhi] || []">{{i + (riGan ? ` · ${shiShen[riGan][i]}` : '')}}</p>
+            <p class="nmlFont" :style=`color:${wuXingColor[wuXingMap[shiGan]]}`>{{riGan && shiGan ? shiShen[riGan][shiGan] : '时'}}</p>
+            <p class="bigFont" :style=`color:${wuXingColor[wuXingMap[shiGan]]}` @click="dialogMark=7; dialogOptions=gan; dialogVisible=true">{{shiGan || '干'}}</p>
+            <p class="bigFont" :style=`color:${wuXingColor[wuXingMap[shiZhi]]}` @click="dialogMark=8; dialogOptions=yangGan.indexOf(shiGan)>=0?yangZhi:yinZhi; shiGan&&(dialogVisible=true)">{{shiZhi || '支'}}</p>
+            <p class="smlFont" :style=`color:${wuXingColor[wuXingMap[i]]}` v-for="i in cangGan[shiZhi] || []">{{i + (riGan ? ` · ${shiShen[riGan][i]}` : '')}}</p>
         </el-col>
     </el-row>
-    <el-dialog v-model="dialogVisible" width="80%">
+    <el-dialog v-model="dialogVisible" width="80%" align-center>
         <el-row justify="center">
             <el-col :span="6" v-for="i in dialogOptions">
-                <p class="bigFont" :style=`color:${wuXingColor[wuXing[i]]}` @click="dialogMarkMap[dialogMark]=i; dialogVisible=false">{{i}}</p>
+                <p class="nmlFont" :style=`color:${wuXingColor[wuXingMap[i]]}` @click="dialogMarkMap[dialogMark]=i; dialogVisible=false">{{i}}</p>
             </el-col>
         </el-row>
     </el-dialog>
+    <el-row justify="center">
+        <el-col :xs="24" :sm="24" :lg="16" :xl="8">
+            <p class="smlFont" :style=`color:${note?'black':'#cccccc'}` style="white-space:pre" @click="noteDialogVisible=true">{{note || '点击备注'}}</p>
+        </el-col>
+    </el-row>
+    <el-dialog v-model="noteDialogVisible" width="80%" align-center>
+        <el-input v-model="note" :autosize="{minRows:3}" type="textarea" placeholder="输入备注"></el-input>
+        <el-button type="primary" style="margin-top:20px" @click="noteDialogVisible=false">确认</el-button>
+    </el-dialog>
 </div>
-
 <style>
     p.smlFont {
         text-align: center;
         font-weight: bold;
-        font-size: 40px;
+        font-size: 20px;
     }
     p.nmlFont {
         text-align: center;
         font-weight: bold;
-        font-size: 50px;
+        font-size: 30px;
     }
     p.bigFont {
         text-align: center;
         font-weight: bold;
-        font-size: 99px;
+        font-size: 50px;
     }
 </style>
-
 <script>
-    const { createApp, ref, watch } = Vue
+    const { createApp, onMounted, ref, watch } = Vue
     const { ElMessage } = ElementPlus
-    ElMessage('点击对应位置选择干支')
-
     const nianGan = ref(), nianZhi = ref(), yueGan = ref(), yueZhi = ref(), riGan = ref(), riZhi = ref(), shiGan = ref(), shiZhi = ref()
-    const dialogMark = ref()
-    const dialogMarkMap = ref({ 1: nianGan, 2: nianZhi, 3: yueGan, 4: yueZhi, 5: riGan, 6: riZhi, 7: shiGan, 8: shiZhi })
-    const dialogOptions = ref([])
-    const dialogVisible = ref(false)
-    const cangGan = {
-        '子': ['癸'],
-        '丑': ['己', '癸', '辛'],
-        '寅': ['甲', '丙', '戊'],
-        '卯': ['乙'],
-        '辰': ['戊', '乙', '癸'],
-        '巳': ['丙', '庚', '戊'],
-        '午': ['丁', '己'],
-        '未': ['己', '丁', '乙'],
-        '申': ['庚', '壬', '戊'],
-        '酉': ['辛'],
-        '戌': ['戊', '辛', '丁'],
-        '亥': ['壬', '甲'],
-    }
-    const shiShen = {
-        '甲': { '甲': '比', '乙': '劫', '丙': '食', '丁': '伤', '戊': '才', '己': '财', '庚': '杀', '辛': '官', '壬': '枭', '癸': '印' },
-        '乙': { '甲': '劫', '乙': '比', '丙': '伤', '丁': '食', '戊': '财', '己': '才', '庚': '官', '辛': '杀', '壬': '印', '癸': '枭' },
-        '丙': { '甲': '枭', '乙': '印', '丙': '比', '丁': '劫', '戊': '食', '己': '伤', '庚': '才', '辛': '财', '壬': '杀', '癸': '官' },
-        '丁': { '甲': '印', '乙': '枭', '丙': '劫', '丁': '比', '戊': '伤', '己': '食', '庚': '财', '辛': '才', '壬': '官', '癸': '杀' },
-        '戊': { '甲': '杀', '乙': '官', '丙': '枭', '丁': '印', '戊': '比', '己': '劫', '庚': '食', '辛': '伤', '壬': '才', '癸': '财' },
-        '己': { '甲': '官', '乙': '杀', '丙': '印', '丁': '枭', '戊': '劫', '己': '比', '庚': '伤', '辛': '食', '壬': '财', '癸': '才' },
-        '庚': { '甲': '才', '乙': '财', '丙': '杀', '丁': '官', '戊': '枭', '己': '印', '庚': '比', '辛': '劫', '壬': '食', '癸': '伤' },
-        '辛': { '甲': '财', '乙': '才', '丙': '官', '丁': '杀', '戊': '印', '己': '枭', '庚': '劫', '辛': '比', '壬': '伤', '癸': '食' },
-        '壬': { '甲': '食', '乙': '伤', '丙': '才', '丁': '财', '戊': '杀', '己': '官', '庚': '枭', '辛': '印', '壬': '比', '癸': '劫' },
-        '癸': { '甲': '伤', '乙': '食', '丙': '财', '丁': '才', '戊': '官', '己': '杀', '庚': '印', '辛': '枭', '壬': '劫', '癸': '比' },
-    }
-
-    watch(nianGan, () => nianZhi.value = '')
-    watch(yueGan, () => yueZhi.value = '')
-    watch(riGan, () => riZhi.value = '')
-    watch(shiGan, () => shiZhi.value = '')
-
     const app = createApp({
         setup() {
+            onMounted(() => ElMessage('点击对应位置选择干支'))
+            watch(nianGan, () => nianZhi.value = '')
+            watch(yueGan, () => yueZhi.value = '')
+            watch(riGan, () => riZhi.value = '')
+            watch(shiGan, () => shiZhi.value = '')
             return {
                 nianGan, nianZhi, yueGan, yueZhi, riGan, riZhi, shiGan, shiZhi,
-                dialogMark,
-                dialogMarkMap,
-                dialogOptions,
-                dialogVisible,
-                cangGan,
-                shiShen,
+                dialogMark: ref(),
+                dialogMarkMap: ref({ 1: nianGan, 2: nianZhi, 3: yueGan, 4: yueZhi, 5: riGan, 6: riZhi, 7: shiGan, 8: shiZhi }),
+                dialogOptions: ref([]),
+                dialogVisible: ref(false),
+                note: ref(),
+                noteDialogVisible: ref(false),
+                cangGan: {
+                    '子': ['癸'],
+                    '丑': ['己', '癸', '辛'],
+                    '寅': ['甲', '丙', '戊'],
+                    '卯': ['乙'],
+                    '辰': ['戊', '乙', '癸'],
+                    '巳': ['丙', '庚', '戊'],
+                    '午': ['丁', '己'],
+                    '未': ['己', '丁', '乙'],
+                    '申': ['庚', '壬', '戊'],
+                    '酉': ['辛'],
+                    '戌': ['戊', '辛', '丁'],
+                    '亥': ['壬', '甲'],
+                },
+                gan: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
+                yangGan: ['甲', '丙', '戊', '庚', '壬'],
+                yinGan: ['乙', '丁', '己', '辛', '癸'],
+                zhi: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'],
+                yangZhi: ['子', '寅', '辰', '午', '申', '戌'],
+                yinZhi: ['丑', '卯', '巳', '未', '酉', '亥'],
+                shiShen: {
+                    '甲': { '甲': '比', '乙': '劫', '丙': '食', '丁': '伤', '戊': '才', '己': '财', '庚': '杀', '辛': '官', '壬': '枭', '癸': '印' },
+                    '乙': { '甲': '劫', '乙': '比', '丙': '伤', '丁': '食', '戊': '财', '己': '才', '庚': '官', '辛': '杀', '壬': '印', '癸': '枭' },
+                    '丙': { '甲': '枭', '乙': '印', '丙': '比', '丁': '劫', '戊': '食', '己': '伤', '庚': '才', '辛': '财', '壬': '杀', '癸': '官' },
+                    '丁': { '甲': '印', '乙': '枭', '丙': '劫', '丁': '比', '戊': '伤', '己': '食', '庚': '财', '辛': '才', '壬': '官', '癸': '杀' },
+                    '戊': { '甲': '杀', '乙': '官', '丙': '枭', '丁': '印', '戊': '比', '己': '劫', '庚': '食', '辛': '伤', '壬': '才', '癸': '财' },
+                    '己': { '甲': '官', '乙': '杀', '丙': '印', '丁': '枭', '戊': '劫', '己': '比', '庚': '伤', '辛': '食', '壬': '财', '癸': '才' },
+                    '庚': { '甲': '才', '乙': '财', '丙': '杀', '丁': '官', '戊': '枭', '己': '印', '庚': '比', '辛': '劫', '壬': '食', '癸': '伤' },
+                    '辛': { '甲': '财', '乙': '才', '丙': '官', '丁': '杀', '戊': '印', '己': '枭', '庚': '劫', '辛': '比', '壬': '伤', '癸': '食' },
+                    '壬': { '甲': '食', '乙': '伤', '丙': '才', '丁': '财', '戊': '杀', '己': '官', '庚': '枭', '辛': '印', '壬': '比', '癸': '劫' },
+                    '癸': { '甲': '伤', '乙': '食', '丙': '财', '丁': '才', '戊': '官', '己': '杀', '庚': '印', '辛': '枭', '壬': '劫', '癸': '比' },
+                },
                 wuXingColor: {
                     '木': '#509a79',
                     '火': '#e05244',
@@ -122,18 +127,12 @@
                     '水': '#427bd5',
                     'undefined': '#cccccc',
                 },
-                wuXing: {
+                wuXingMap: {
                     '甲': '木', '乙': '木', '丙': '火', '丁': '火', '戊': '土',
                     '己': '土', '庚': '金', '辛': '金', '壬': '水', '癸': '水',
                     '子': '水', '丑': '土', '寅': '木', '卯': '木', '辰': '土', '巳': '火',
                     '午': '火', '未': '土', '申': '金', '酉': '金', '戌': '土', '亥': '水',
                 },
-                gan: ['甲', '乙', '丙', '丁', '戊', '己', '庚', '辛', '壬', '癸'],
-                yangGan: ['甲', '丙', '戊', '庚', '壬'],
-                yinGan: ['乙', '丁', '己', '辛', '癸'],
-                zhi: ['子', '丑', '寅', '卯', '辰', '巳', '午', '未', '申', '酉', '戌', '亥'],
-                yangZhi: ['子', '寅', '辰', '午', '申', '戌'],
-                yinZhi: ['丑', '卯', '巳', '未', '酉', '亥'],
             }
         }
     })
