@@ -6,4 +6,4 @@
 
 > 图例：
 
-![image](1.png)
+![image](sample.png)
