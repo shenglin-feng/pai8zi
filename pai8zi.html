@@ -22,7 +22,7 @@
             <p class="smlFont" :style=`color:${wuXingColor[wuXingMap[i]]}` v-for="i in cangGan[yueZhi] || []">{{i + (riGan ? ` · ${shiShen[riGan][i]}` : '')}}</p>
         </el-col>
         <el-col :xs="6" :sm="6" :lg="4" :xl="2">
-            <p class="nmlFont">日主</p>
+            <p class="nmlFont" :style=`color:${wuXingColor[riGan&&'日主']}`>日主</p>
             <p class="bigFont" :style=`color:${wuXingColor[wuXingMap[riGan]]}` @click="dialogMark=5; dialogOptions=gan; dialogVisible=true">{{riGan || '干'}}</p>
             <p class="bigFont" :style=`color:${wuXingColor[wuXingMap[riZhi]]}` @click="dialogMark=6; dialogOptions=yangGan.indexOf(riGan)>=0?yangZhi:yinZhi; riGan&&(dialogVisible=true)">{{riZhi || '支'}}</p>
             <p class="smlFont" :style=`color:${wuXingColor[wuXingMap[i]]}` v-for="i in cangGan[riZhi] || []">{{i + (riGan ? ` · ${shiShen[riGan][i]}` : '')}}</p>
@@ -125,6 +125,7 @@
                     '土': '#967957',
                     '金': '#f0a44e',
                     '水': '#427bd5',
+                    '日主': '#333333',
                     'undefined': '#cccccc',
                 },
                 wuXingMap: {
