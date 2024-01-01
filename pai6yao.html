@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>六爻简单装卦</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-plus@2.4.2/dist/index.css" />
+    <script src="https://unpkg.com/vue@3.3.8/dist/vue.global.js"></script>
+    <script src="https://unpkg.com/element-plus@2.4.2/dist/index.full.js"></script>
+</head>
+<div id="pai6yao">
+    <el-row justify="center" v-show="yao[0]<0">
+        <el-col>
+            <p class="pFont" @click="dialogMark=5; dialogVisible=true"            >第一次{{yao[5]<0 ? '' : `：${yao[5]} 字`}}</p>
+            <p class="pFont" @click="dialogMark=4; yao[5]<0||(dialogVisible=true)">第二次{{yao[4]<0 ? '' : `：${yao[4]} 字`}}</p>
+            <p class="pFont" @click="dialogMark=3; yao[4]<0||(dialogVisible=true)">第三次{{yao[3]<0 ? '' : `：${yao[3]} 字`}}</p>
+            <p class="pFont" @click="dialogMark=2; yao[3]<0||(dialogVisible=true)">第四次{{yao[2]<0 ? '' : `：${yao[2]} 字`}}</p>
+            <p class="pFont" @click="dialogMark=1; yao[2]<0||(dialogVisible=true)">第五次{{yao[1]<0 ? '' : `：${yao[1]} 字`}}</p>
+            <p class="pFont" @click="dialogMark=0; yao[1]<0||(dialogVisible=true)">第六次{{yao[0]<0 ? '' : `：${yao[0]} 字`}}</p>
+        </el-col>
+    </el-row>
+    <el-dialog v-model="dialogVisible" width="80%" align-center>
+        <el-row justify="center">
+            <el-col>
+                <p class="pFont" @click="yao[dialogMark]=0; dialogVisible=false; dialogMark===0&&main()">0 字</p>
+                <p class="pFont" @click="yao[dialogMark]=1; dialogVisible=false; dialogMark===0&&main()">1 字</p>
+                <p class="pFont" @click="yao[dialogMark]=2; dialogVisible=false; dialogMark===0&&main()">2 字</p>
+                <p class="pFont" @click="yao[dialogMark]=3; dialogVisible=false; dialogMark===0&&main()">3 字</p>
+            </el-col>
+        </el-row>
+    </el-dialog>
+    <el-row justify="center">
+        <el-col :xs="12" :sm="12" :lg="8" :xl="4">
+            <p class="pFont" v-for="i in benGua">{{i ? '▅▅▅▅▅▅▅▅▅▅' : '▅▅▅▅&nbsp;&nbsp;&nbsp;&nbsp;▅▅▅▅'}}</p>
+        </el-col>
+        <el-col :xs="12" :sm="12" :lg="8" :xl="4">
+            <p class="pFont" v-for="i in bianGua">{{i ? '▅▅▅▅▅▅▅▅▅▅' : '▅▅▅▅&nbsp;&nbsp;&nbsp;&nbsp;▅▅▅▅'}}</p>
+        </el-col>
+    </el-row>
+</div>
+<style>
+    p.pFont {
+        color: black;
+        font-size: 30px;
+        font-weight: bold;
+        text-align: center;
+    }
+</style>
+<script>
+    const { createApp, ref } = Vue
+    const benGua = ref([])
+    const bianGua = ref([])
+    const yao = ref([0, 1, 2, 3, 2, 1])
+    function main() {
+        for (const i of yao.value) {
+            if (i === 0)      { benGua.value.push(1); bianGua.value.push(0) }
+            else if (i === 1) { benGua.value.push(0); bianGua.value.push(0) }
+            else if (i === 2) { benGua.value.push(1); bianGua.value.push(1) }
+            else if (i === 3) { benGua.value.push(0); bianGua.value.push(1) }
+        }
+    }
+    main()
+    const app = createApp({
+        setup() {
+            return {
+                benGua,
+                bianGua,
+                yao,
+                main,
+                dialogMark: ref(),
+                dialogVisible: ref(false),
+                baGua: ref({
+                    '111': '乾天', '010': '坎水', '100': '艮山', '001': '震雷', '110': '巽风', '101': '离火', '000': '坤地', '011': '兑泽'
+                }),
+                guaGong: ref({
+                    '乾天': ['天天乾卦', '天风姤', '天山遁', '天地否', '风地观', '山地剥', '火地晋', '火天大有'],
+                    '坎水': ['水水坎卦', '水泽节', '水雷屯', '水火既济', '泽火革', '雷火丰', '地火明夷', '地水师'],
+                    '艮山': ['山山艮卦', '山火贲', '山天大畜', '山泽损', '火泽睽', '天泽履', '风泽中孚', '风山渐'],
+                    '震雷': ['雷雷震卦', '雷地豫', '雷水解', '雷风恒', '地风升', '水风井', '泽风大过', '泽雷随'],
+                    '巽风': ['风风巽卦', '风天小畜', '风火家人', '风雷益', '天雷无妄', '火雷噬嗑', '山雷颐', '山风蛊'],
+                    '离火': ['火火离卦', '火山旅', '火风鼎', '火水未济', '山水蒙', '风水涣', '天水讼', '天火同人'],
+                    '坤地': ['地地坤卦', '地雷复', '地泽临', '地天泰', '雷天大壮', '泽天夬', '水天需', '水地比'],
+                    '兑泽': ['泽泽兑卦', '泽水困', '泽地萃', '泽山咸', '水山蹇', '地山谦', '雷山小过', '雷泽归妹'],
+                }),
+                liuChong: ref([
+                    '乾卦', '坎卦', '艮卦', '震卦', '巽卦', '离卦', '坤卦', '兑卦', '天雷无妄', '雷天大壮'
+                ]),
+                liuQin: ref({
+                    '木': { '木': '兄弟', '火': '子孙', '土': '妻财', '金': '官鬼', '水': '父母' },
+                    '火': { '木': '父母', '火': '兄弟', '土': '子孙', '金': '妻财', '水': '官鬼' },
+                    '土': { '木': '官鬼', '火': '父母', '土': '兄弟', '金': '子孙', '水': '妻财' },
+                    '金': { '木': '妻财', '火': '官鬼', '土': '父母', '金': '兄弟', '水': '子孙' },
+                    '水': { '木': '子孙', '火': '妻财', '土': '官鬼', '金': '父母', '水': '兄弟' },
+                }),
+                naJia: ref({
+                    '乾天': ['甲子水', '甲寅木', '甲辰土', '壬午火', '壬申金', '壬戌土'],
+                    '坎水': ['戊寅木', '戊辰土', '戊午火', '戊申金', '戊戌土', '戊子水'],
+                    '艮山': ['丙辰土', '丙午火', '丙申金', '丙戌土', '丙子水', '丙寅木'],
+                    '震雷': ['庚子水', '庚寅木', '庚辰土', '庚午火', '庚申金', '庚戌土'],
+                    '巽风': ['辛丑土', '辛亥水', '辛酉金', '辛未土', '辛巳火', '辛卯木'],
+                    '离火': ['己卯木', '己丑土', '己亥水', '己酉金', '己未土', '己巳火'],
+                    '坤地': ['乙未土', '乙巳火', '乙卯木', '癸丑土', '癸亥水', '癸酉金'],
+                    '兑泽': ['丁巳火', '丁卯木', '丁丑土', '丁亥水', '丁酉金', '丁未土'],
+                }),
+                wuXing: ref({
+                    '乾天': '金', '坎水': '水', '艮山': '土', '震雷': '木', '巽风': '木', '离火': '火', '坤地': '土', '兑泽': '金'
+                }),
+            }
+        }
+    })
+    app.use(ElementPlus)
+    app.mount('#pai6yao')
+</script>

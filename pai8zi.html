@@ -7,7 +7,7 @@
     <script src="https://unpkg.com/vue@3.3.8/dist/vue.global.js"></script>
     <script src="https://unpkg.com/element-plus@2.4.2/dist/index.full.js"></script>
 </head>
-<div id="app">
+<div id="pai8zi">
     <el-row justify="center">
         <el-col :xs="6" :sm="6" :lg="4" :xl="2">
             <p class="nmlFont" :style=`color:${wuXingColor[wuXingMap[nianGan]]}`>{{riGan && nianGan ? shiShen[riGan][nianGan] : '年'}}</p>
@@ -53,19 +53,19 @@
 </div>
 <style>
     p.smlFont {
-        text-align: center;
-        font-weight: bold;
         font-size: 20px;
+        font-weight: bold;
+        text-align: center;
     }
     p.nmlFont {
-        text-align: center;
-        font-weight: bold;
         font-size: 30px;
+        font-weight: bold;
+        text-align: center;
     }
     p.bigFont {
-        text-align: center;
-        font-weight: bold;
         font-size: 50px;
+        font-weight: bold;
+        text-align: center;
     }
 </style>
 <script>
@@ -138,5 +138,5 @@
         }
     })
     app.use(ElementPlus)
-    app.mount('#app')
+    app.mount('#pai8zi')
 </script>
